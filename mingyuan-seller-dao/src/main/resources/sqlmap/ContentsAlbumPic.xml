@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="GBK" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!--suppress inspection_null_to_primary_type_variable -->
+<sqlMap namespace="contentsAlbumPic">
+    <!--
+    <typeAlias alias="albumPic" type="com.jd.music.contents.domain.contents.ContentsAlbumPic"/>
+    <typeAlias alias="albumVo" type="com.jd.music.contents.domain.contents.vo.AlbumVo"></typeAlias>
+    <resultMap id="albumPicResult" class="albumPic">
+        <result column="id" property="id"/>
+        <result column="singer" property="singer"/>
+        <result column="singer_eng" property="singerEng"/>
+        <result column="album" property="album"/>
+        <result column="album_eng" property="albumEng"/>
+        <result column="pic_address" property="picAddress"/>
+        <result column="created" property="created"/>
+        <result column="modified" property="modified"/>
+    </resultMap>
+    <sql id="queryCondition">
+        <isNotEmpty prepend=" and " property="tableId">
+            <![CDATA[
+            id = #tableId#
+               ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend=" and " property="createdStart">
+            <![CDATA[
+            created >= #createdStart#
+               ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend=" and " property="createdEnd">
+            <![CDATA[
+            created <=date_add(#createdEnd#, interval 1 day)
+             ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend=" and " property="singerLike">
+            <![CDATA[
+            (singer like concat('%',#singerLike#,'%') or singer_eng like concat('%', #singerLike#, "%"))
+             ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend=" and " property="albumLike">
+            <![CDATA[
+            (album like concat('%',#albumLike#,'%') or album_eng like concat('%',#albumLike#,'%'))
+             ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="" property="isHavePic">
+            <isEqual prepend=" and " property="isHavePic" compareValue="2">
+                pic_address = ''
+            </isEqual>
+            <isEqual prepend=" and " property="isHavePic" compareValue="1">
+                pic_address != ''
+            </isEqual>
+        </isNotEmpty>
+        <isNotEmpty prepend="" property="singer">
+            <isNotEqual prepend=" and " property="singer" compareValue="n/a">
+                singer = #singer#
+            </isNotEqual>
+            <isEqual prepend=" and " property="singer" compareValue="n/a">
+                (singer='' or singer is null)
+            </isEqual>
+        </isNotEmpty>
+
+        <isNotEmpty prepend="" property="singerEng">
+            <isNotEqual prepend=" and " property="singerEng" compareValue="n/a">
+                singer_Eng = #singerEng#
+            </isNotEqual>
+            <isEqual prepend=" and " property="singerEng" compareValue="n/a">
+                (singer_eng='' or singer_eng is null)
+            </isEqual>
+        </isNotEmpty>
+
+        <isNotEmpty prepend="" property="album">
+            <isNotEqual prepend=" and " property="album" compareValue="n/a">
+                album=#album#
+            </isNotEqual>
+            <isEqual prepend=" and " property="album" compareValue="n/a">
+                (album='' or album is null)
+            </isEqual>
+        </isNotEmpty>
+
+        <isNotEmpty prepend="" property="albumEng">
+            <isNotEqual prepend=" and " property="albumEng" compareValue="n/a">
+                album_eng=#albumEng#
+            </isNotEqual>
+            <isEqual prepend=" and " property="albumEng" compareValue="n/a">
+                (album_eng='' or album_eng is null)
+            </isEqual>
+        </isNotEmpty>
+    </sql>
+    <insert id="insertAlbumPic" parameterClass="albumPic">
+        insert into CONTENTS_ALBUM_PIC(
+            id, singer, singer_eng, album, album_Eng,pic_address, created, modified
+        )values(
+            #id#,#singer#, #singerEng#, #album#, #albumEng#,#picAddress#,now(),now()
+        )
+    </insert>
+    <update id="deleteAlbumPic" parameterClass="albumVo">
+        delete from  contents_album_pic  where id in ($tableIds$)
+    </update>
+    <update id="updateAlbumPic" parameterClass="albumPic">
+        update contents_album_pic set singer=#singer#, singer_eng=#singerEng#, album=#album#, album_eng=#albumEng#,pic_address=#picAddress#, modified=now() where id=#id#
+    </update>
+    <select id="queryAlbumPic" parameterClass="albumVo" resultMap="albumPicResult">
+        select id, singer, singer_eng, album, album_eng, pic_address, created, modified from contents_album_pic where 1=1
+        <include refid="queryCondition"/>
+        order by created desc
+        limit #startRow#, #endRow#
+    </select>
+    <select id="queryCount" parameterClass="albumVo" resultClass="int">
+        select count(id) from contents_album_pic where 1=1
+        <include refid="queryCondition"/>
+    </select>
+    <select id="getAlbumPic" parameterClass="int" resultMap="albumPicResult">
+        select id, singer, singer_eng, album, album_eng, pic_address, created, modified from contents_album_pic where id=#id#
+    </select>
+    -->
+</sqlMap>
